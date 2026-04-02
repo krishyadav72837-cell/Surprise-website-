@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Queen Aakriti Shrestha 💖</title>
+    <style>
+        :root {
+            --pink: #ff4da6;
+            --soft-pink: #ff85a2;
+            --deep-purple: #1a001a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body {
+            background: black;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 🌌 ROMANTIC SPACE BACKGROUND */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #2b0033 0%, #000 100%);
+            z-index: -2;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--d) infinite ease-in-out;
+        }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* 💖 FLOATING HEARTS */
+        .heart {
+            position: fixed;
+            bottom: -50px;
+            color: var(--soft-pink);
+            font-size: 20px;
+            pointer-events: none;
+            animation: floatUp 6s linear forwards;
+            z-index: -1;
+            text-shadow: 0 0 10px var(--pink);
+        }
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 📄 PAGE SYSTEM */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: transparent;
+        }
+        .active { display: flex; animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* 🎀 UI ELEMENTS */
+        h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 0 15px var(--pink); }
+        p { font-size: 1.2rem; margin-bottom: 20px; }
+        .glow-text { color: var(--pink); text-shadow: 0 0 10px var(--pink); font-weight: bold; }
+        
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; z-index: 100; }
+        button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            background: var(--pink);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(255, 77, 166, 0.4);
+        }
+        button:hover { transform: scale(1.1); box-shadow: 0 0 25px var(--pink); }
+
+        /* 🖼️ SLIDER */
+        .slider-container {
+            width: 300px;
+            height: 380px;
+            border: 5px solid white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--pink);
+            margin-bottom: 20px;
+        }
+        .slides { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slides img { width: 300px; height: 380px; object-fit: cover; }
+
+        /* 🌹 FINAL TOUCHES */
+        .petal {
+            position: fixed;
+            background: #ff4d6d;
+            border-radius: 50% 0 50% 50%;
+            animation: petalFall 5s linear forwards;
+            z-index: 5;
+        }
+        @keyframes petalFall { to { transform: translateY(100vh) rotate(450deg); opacity: 0; } }
+
+        #noBtn { position: relative; transition: 0.1s; }
+    </style>
+</head>
+<body>
+
+    <div id="bg-canvas"></div>
+    <audio id="music" src="music.mp3" loop></audio>
+
+    <div class="page active" id="p1">
+        <h1>Welcome my princess 👑💖</h1>
+        <p>How are you feeling now, Aakriti?</p>
+        <p class="glow-text">“तिमी मेरो मुटुको धड्कन हौ 💖”</p>
+        <div class="btn-group">
+            <button onclick="go('good')">Good 💖</button>
+            <button onclick="go('bad')">Bad 😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="bad">
+        <h1>Don’t be sad my babe 🥺💖</h1>
+        <p style="max-width: 500px;">
+            “तिमी दुखी हुँदा मेरो मन पनि रोइरहन्छ,<br>
+            तिम्रो मुस्कान नै मेरो सारा संसार हो 🌸”
+        </p>
+        <button onclick="go('good')">I’m smiling now 😊💖</button>
+    </div>
+
+    <div class="page" id="good">
+        <h1 class="glow-text">How cute are you 💖👑</h1>
+        <div class="slider-container">
+            <div class="slides" id="slides">
+                <script>
+                    for(let i=1; i<=15; i++) {
+                        document.write(`<img src="image${i}.jpg" alt="Aakriti ${i}">`);
+                    }
+                </script>
+            </div>
+        </div>
+        <p>“Mero bacha ko Mami 😁😘💖”</p>
+        <p>Do you want to see more? 👀</p>
+        <div class="btn-group">
+            <button onclick="go('final')">Yes 😍</button>
+            <button id="noBtn" onmouseover="dodge()">No 🙈</button>
+        </div>
+    </div>
+
+    <div class="page" id="final">
+        <h1 class="glow-text">Aakriti Shrestha 💖👑</h1>
+        <p>“तिमी हाँस्यौ भने मेरो ब्रह्माण्ड चम्किन्छ ✨”</p>
+        
+        <p style="font-size: 1.4rem; line-height: 1.8;">
+            ना तिमी बिना जीवन छ 🌸<br>
+            ना तिमी बिना सपना छ 💖<br>
+            तिमी नै मेरो संसार हौ 👑
+        </p>
+
+        <div style="font-size: 3rem; margin: 20px;">🍕 🍫 🎁</div>
+        <button id="playBtn" onclick="startSurprise()">Open Surprise 🎁🎶</button>
+        
+        <p id="foreverMsg" style="display:none; margin-top:20px; font-weight:bold;" class="glow-text">
+            I LOVE YOU FOREVER & ALWAYS! ❤️✨
+        </p>
+    </div>
+
+    <script>
+        // --- NAVIGATION ---
+        function go(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // --- STARS GENERATION ---
+        const bg = document.getElementById('bg-canvas');
+        for (let i = 0; i < 100; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            let size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.setProperty('--d', (Math.random() * 3 + 2) + 's');
+            bg.appendChild(star);
+        }
+
+        // --- FLOATING HEARTS ---
+        setInterval(() => {
+            let h = document.createElement("div");
+            h.className = "heart";
+            h.innerHTML = ["💖", "💕", "💗", "🌸"][Math.floor(Math.random() * 4)];
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.fontSize = Math.random() * 20 + 15 + "px";
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 6000);
+        }, 400);
+
+        // --- SLIDER LOGIC ---
+        let slideIndex = 0;
+        setInterval(() => {
+            let s = document.getElementById("slides");
+            if(s) {
+                slideIndex = (slideIndex + 1) % 15;
+                s.style.transform = `translateX(-${slideIndex * 300}px)`;
+            }
+        }, 2000);
+
+        // --- DODGE BUTTON (NO) ---
+        function dodge() {
+            let btn = document.getElementById("noBtn");
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            btn.style.position = "fixed";
+            btn.style.left = x + "px";
+            btn.style.top = y + "px";
+        }
+
+        // --- FINAL SURPRISE & MUSIC ---
+        function startSurprise() {
+            const music = document.getElementById("music");
+            music.play().catch(() => console.log("Audio play blocked by browser"));
+            document.getElementById("playBtn").innerText = "Falling for you... ❤️";
+            document.getElementById("foreverMsg").style.display = "block";
+            
+            // Flower Shower
+            for(let i=0; i<50; i++) {
+                setTimeout(() => {
+                    let p = document.createElement("div");
+                    p.className = "petal";
+                    p.style.width = Math.random() * 15 + 10 + "px";
+                    p.style.height = p.style.width;
+                    p.style.left = Math.random() * 100 + "vw";
+                    p.style.top = "-20px";
+                    p.style.backgroundColor = ["#ff4d6d", "#ff758c", "#ff85a2"][Math.floor(Math.random()*3)];
+                    document.body.appendChild(p);
+                    setTimeout(() => p.remove(), 5000);
+                }, i * 150);
+            }
+        }
+    </script>
+</body>
+</html>
